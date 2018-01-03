@@ -39,3 +39,5 @@ let makeNewRecord = (userId, userName,repoId, repoName, forks) => {
 // module.exports.save = save;
 
 module.exports.makeNewRecord = makeNewRecord;
+
+module.exports.Repo = Repo;
