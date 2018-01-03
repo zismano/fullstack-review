@@ -24,7 +24,13 @@ app.post('/repos', function (req, res) {
 			let repoId = userRepos[i].id;
 			let repoName = userRepos[i].name;
 			let forks = userRepos[i].forks;
-			db.makeNewRecord(userId, userName, repoId, repoName, forks).save();
+			// checks db for duplicates
+			db.Repo.findOne({ 'userId': userId, 'repoId': repoId }, 'forks', (err, p) => {
+				// make new record only if found no such record
+				if (!p) {
+					db.makeNewRecord(userId, userName, repoId, repoName, forks).save();
+				}
+			});
 		}	
 	});
 });
